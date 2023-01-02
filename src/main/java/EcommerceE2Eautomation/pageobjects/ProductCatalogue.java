@@ -1,6 +1,5 @@
 package EcommerceE2Eautomation.pageobjects;
 
-
 import EcommerceE2Eautomation.abstractComponents.AbstractComponents;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -24,13 +23,33 @@ public class ProductCatalogue extends AbstractComponents {
     @FindBy(css=".mb-3")
     List<WebElement> products;
 
+    @FindBy(css=".ng-animating")
+    WebElement spinner;
+
     By productsList = By.cssSelector(".mb-3");
+    By addToCart    = By.cssSelector(".card-body button:last-of-type");
+    By toastMessage = By.cssSelector("#toast-container");
 
-    public List<WebElement> getProducts(){
-
+    public List<WebElement> getProductList()
+    {
         waitForElementToAppear(productsList);
         return products;
     }
+
+    public WebElement getProductName(String productName)
+    {
+        WebElement prod = products.stream().filter(product-> product.findElement(By.cssSelector("b"))
+                .getText().equalsIgnoreCase(productName)).findFirst().orElse(null);
+        return prod;
+    }
+
+    public void addProductToCart(String productName) throws InterruptedException {
+        WebElement prod = getProductName(productName);
+        prod.findElement(addToCart).click();
+        waitForElementToAppear(toastMessage);
+        waitForElementToDisappear(spinner);
+    }
+
 
 
 
