@@ -1,5 +1,7 @@
 package EcommerceE2Eautomation.abstractComponents;
 
+import EcommerceE2Eautomation.pageobjects.CartPage;
+import EcommerceE2Eautomation.pageobjects.CheckoutPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,15 +33,19 @@ public class AbstractComponents {
         wait.until(ExpectedConditions.visibilityOfElementLocated(findEleBy)); //By locator (not WebElement)
     }
 
-    public void goToCart()
+    public CartPage goToCart()
     {
         viewCart.click();
+        CartPage cartPage = new CartPage(driver);
+        return cartPage;
     }
 
-    public void goToCheckOut()
+    public CheckoutPage goToCheckOut()
     {
         checkout.click();
+        return new CheckoutPage(driver);
     }
+
     public void waitForElementToDisappear(WebElement ele) throws InterruptedException {
         Thread.sleep(1000);
         //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
