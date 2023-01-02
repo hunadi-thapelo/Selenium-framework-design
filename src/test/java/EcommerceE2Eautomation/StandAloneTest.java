@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.List;
@@ -14,6 +15,9 @@ import java.util.List;
 public class StandAloneTest {
 
     public static void main(String[] args) throws InterruptedException {
+
+        String productName = "adidas original";
+
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
@@ -30,7 +34,7 @@ public class StandAloneTest {
 
         //Search, filter and find our product
         WebElement prod = products.stream().filter(product-> product.findElement(By.cssSelector("b"))
-                .getText().equalsIgnoreCase("adidas original")).findFirst().orElse(null);
+                .getText().equalsIgnoreCase(productName)).findFirst().orElse(null);
         //Select and add it to cart
         //Because we are already in our product scope(prod.) we can then find Add To Cart button for product and click on it
         //System.out.println("driver=" + driver); //code to confirm the driver variable
@@ -44,6 +48,15 @@ public class StandAloneTest {
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[routerlink*='cart']")));
         Thread.sleep(1000);
         driver.findElement(By.cssSelector("[routerlink*='cart']")).click();
+
+        List<WebElement> cartProducts = driver.findElements(By.cssSelector(".cartSection h3"));
+        Boolean match = cartProducts.stream().anyMatch(cartProduct-> cartProduct.getText().equalsIgnoreCase(productName));
+        Assert.assertTrue(match);
+
+        driver.findElement(By.cssSelector(".totalRow button")).click();
+
+
+
 
 
     }
