@@ -22,6 +22,9 @@ public class CartPage extends AbstractComponents {
     @FindBy(css=".cartSection h3")
     List<WebElement> productTitle;
 
+    @FindBy(css=".totalRow button")
+    WebElement checkOutEle;
+
 
     public boolean verifyProductTitle(String productName)
     {
@@ -29,11 +32,10 @@ public class CartPage extends AbstractComponents {
         return match;
     }
 
-
-
-
-
-
-
+    public CheckoutPage goToCheckOut()
+    {
+        checkOutEle.click();
+        return new CheckoutPage(driver);
+    }
 
 }
