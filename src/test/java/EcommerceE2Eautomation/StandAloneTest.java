@@ -1,5 +1,6 @@
 package EcommerceE2Eautomation;
 
+import EcommerceE2Eautomation.pageobjects.LandingPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +24,7 @@ public class StandAloneTest {
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
         driver.get("https://rahulshettyacademy.com/client");
+        LandingPage landingPage = new LandingPage(driver);
         driver.findElement(By.id("userEmail")).sendKeys("hautomation@email.com");
         driver.findElement(By.id("userPassword")).sendKeys("P@s$w0rd!");
         driver.findElement(By.id("login")).click();
