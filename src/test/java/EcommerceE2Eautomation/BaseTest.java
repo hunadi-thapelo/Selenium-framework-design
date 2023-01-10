@@ -4,14 +4,18 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
 
 public class BaseTest {
 
-    public void initializeDriver()
-    {
+    public void initializeDriver() throws IOException {
         Properties prop = new Properties(); //obj of Properties class
+
+        FileInputStream fis = new FileInputStream("/Users/hunadimapulane/IdeaProjects/SeleniumFrameworkDesign/src/main/java/EcommerceE2Eautomation/resources/GlobalData.properties");
+        prop.load(fis);//fileinputstream object passed to prop load method
 
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
