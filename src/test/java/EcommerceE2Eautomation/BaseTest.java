@@ -11,6 +11,8 @@ import java.util.Properties;
 
 public class BaseTest {
 
+    public WebDriver driver;
+
     public void initializeDriver() throws IOException {
         Properties prop = new Properties(); //obj of Properties class
 
@@ -20,12 +22,13 @@ public class BaseTest {
 
         if(browserName.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
-            WebDriver driver = new ChromeDriver();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
-            driver.manage().window().maximize();
+            driver = new ChromeDriver();
+
         } else if(browserName.equalsIgnoreCase("firefox"))
         {
             //firefox
         }
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
+        driver.manage().window().maximize();
     }
 }
