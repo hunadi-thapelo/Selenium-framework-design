@@ -18,10 +18,14 @@ public class BaseTest {
         prop.load(fis);//fileinputstream object passed to prop load method
         String browserName = prop.getProperty("browser");
 
-
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
-        driver.manage().window().maximize();
+        if(browserName.equalsIgnoreCase("chrome")) {
+            WebDriverManager.chromedriver().setup();
+            WebDriver driver = new ChromeDriver();
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
+            driver.manage().window().maximize();
+        } else if(browserName.equalsIgnoreCase("firefox"))
+        {
+            //firefox
+        }
     }
 }
