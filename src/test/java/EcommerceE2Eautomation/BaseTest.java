@@ -16,7 +16,7 @@ public class BaseTest {
     public void initializeDriver() throws IOException {
         Properties prop = new Properties(); //obj of Properties class
 
-        FileInputStream fis = new FileInputStream("/Users/hunadimapulane/IdeaProjects/SeleniumFrameworkDesign/src/main/java/EcommerceE2Eautomation/resources/GlobalData.properties");
+        FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"/src/main/java/EcommerceE2Eautomation/resources/GlobalData.properties");
         prop.load(fis);//fileinputstream object passed to prop load method
         String browserName = prop.getProperty("browser");
 
