@@ -1,28 +1,23 @@
 package EcommerceE2Eautomation;
 
 import EcommerceE2Eautomation.pageobjects.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
-import java.time.Duration;
+import java.io.IOException;
 import java.util.List;
 
-public class CompleteOrderTest {
+public class CompleteOrderTest extends BaseTest{
 
-    public static void main(String[] args) throws InterruptedException {
+    @Test
+    public void completeOrder() throws IOException, InterruptedException {
 
         String productName = "adidas original";
 
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
-        driver.manage().window().maximize();
-        LandingPage landingPage = new LandingPage(driver);
-        landingPage.goTo();
+        LandingPage landingPage = launchApplication(); //changed static main method to testNG annotations as method is non-static
         ProductCatalogue orderProduct = landingPage.loginApplication(
                     "hautomation@email.com", "P@s$w0rd!");//optimise creating new object as new ProductCa...
 
