@@ -1,5 +1,6 @@
 package EcommerceE2Eautomation;
 
+import EcommerceE2Eautomation.pageobjects.LandingPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,7 +14,7 @@ public class BaseTest {
 
     public WebDriver driver;
 
-    public void initializeDriver() throws IOException {
+    public WebDriver initializeDriver() throws IOException {
         Properties prop = new Properties(); //obj of Properties class
 
         FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"/src/main/java/EcommerceE2Eautomation/resources/GlobalData.properties");
@@ -24,11 +25,25 @@ public class BaseTest {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
 
-        } else if(browserName.equalsIgnoreCase("firefox"))
-        {
-            //firefox
         }
+        //else if(browserName.equalsIgnoreCase("firefox"))
+        //{
+            //firefox
+        //}
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
         driver.manage().window().maximize();
+
+        return driver;
+    }
+
+
+    //method to launch application
+    public LandingPage launchApplication() throws IOException {
+
+        driver = initializeDriver();
+        LandingPage landingPage = new LandingPage(driver);
+        landingPage.goTo();
+        return landingPage;
+
     }
 }
