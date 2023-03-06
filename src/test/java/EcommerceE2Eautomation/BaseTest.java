@@ -4,6 +4,7 @@ import EcommerceE2Eautomation.pageobjects.LandingPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeMethod;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.util.Properties;
 public class BaseTest {
 
     public WebDriver driver;
+    LandingPage landingPage;
 
     public WebDriver initializeDriver() throws IOException {
         Properties prop = new Properties(); //obj of Properties class
@@ -38,10 +40,11 @@ public class BaseTest {
 
 
     //method to launch application
+    @BeforeMethod
     public LandingPage launchApplication() throws IOException {
 
         driver = initializeDriver();
-        LandingPage landingPage = new LandingPage(driver);
+        landingPage = new LandingPage(driver);//created landinpage on top - as instance variable
         landingPage.goTo();
         return landingPage;
 
