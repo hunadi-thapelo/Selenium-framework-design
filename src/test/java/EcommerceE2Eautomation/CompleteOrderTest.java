@@ -7,17 +7,19 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.util.List;
 
 public class CompleteOrderTest extends BaseTest{
 
     @Test
-    public void completeOrder() throws IOException, InterruptedException {
+    public void completeOrder() throws InterruptedException {
 
         String productName = "adidas original";
 
-        LandingPage landingPage = launchApplication(); //changed static main method to testNG annotations as method is non-static
+        //LandingPage landingPage = launchApplication(); //changed static main method to testNG annotations
+        // as method is non-static
+        //removed landingpage object
+
         ProductCatalogue orderProduct = landingPage.loginApplication(
                     "hautomation@email.com", "P@s$w0rd!");//optimise creating new object as new ProductCa...
 
