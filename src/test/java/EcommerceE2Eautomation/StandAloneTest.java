@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 
 import java.time.Duration;
@@ -22,6 +23,9 @@ public class StandAloneTest {
 
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
         driver.get("https://rahulshettyacademy.com/client");
         LandingPage landingPage = new LandingPage(driver);
@@ -29,7 +33,6 @@ public class StandAloneTest {
         driver.findElement(By.id("userPassword")).sendKeys("P@s$w0rd!");
         driver.findElement(By.id("login")).click();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".mb-3"))); //for products to load before List
 
         //Test case: Add Adidas Original and iPhone 13 Pro products to cart
@@ -63,13 +66,16 @@ public class StandAloneTest {
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ta-results")));
         driver.findElement(By.xpath("(//button[contains(@class,'ta-item')])[3]")).click();
-        driver.findElement(By.cssSelector(".action__submit")).click();
+
+        WebElement actionSubmitBtn = driver.findElement(By.cssSelector(".action__submit"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", actionSubmitBtn);
+        actionSubmitBtn.click();
 
         //Test case: Validate order confirmation
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".hero-primary")));
         String confirmMessage = driver.findElement(By.cssSelector(".hero-primary")).getText();
         Assert.assertTrue(confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
-        driver.close();
+        driver.quit();
 
     }
 }
